@@ -1,0 +1,8 @@
+TODO: check all hardcoded dimens in code
+
+TODO: make the Button composable as a separate reusable component?
+TODO: add theme with colors for all components
+
+TODO: make action IconButton as a reusable elements?
+
+TODO: move uistates to viewmodel?

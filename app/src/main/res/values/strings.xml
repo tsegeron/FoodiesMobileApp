@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Foodies</string>
+    <string name="catalog">Catalog</string>
+    <string name="dish_card">Dish Card</string>
+    <string name="splash">Splash</string>
+<!--    <string name="cart">Cart</string>-->
+<!--    <string name="filter">Filter</string>-->
+<!--    <string name="search">Search</string>-->
+
+    <string name="cart">Корзина</string>
+    <string name="discount">Со скидкой</string>
+
+
+    <string name="back_button">Back</string>
+    <string name="filter_button">Filter</string>
+    <string name="search_button">Search</string>
+
+
+    <string name="add_button">Add</string>
+    <string name="reduce_button">Reduce</string>
+
+
+    <!-- Catalog Screen -->
+    <string name="filter">Фильтр</string>
+    <string name="search">Поиск</string>
+    <string name="choose_dishes">Подобрать блюда</string>
+    <string name="submit">Готово</string>
+    <string name="catalog_no_results">Ничего не нашлось :(</string>
+
+    <!-- Dish Screen -->
+    <string name="add_to_cart1">В корзину за</string>
+    <string name="add_to_cart2">Добавить за</string>
+    <string name="measure">Вес</string>
+    <string name="energy_per_100_grams">Энерг. ценность</string>
+    <string name="proteins_per_100_grams">Белки</string>
+    <string name="fats_per_100_grams">Жиры</string>
+    <string name="carbohydrates_per_100_grams">Углеводы</string>
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+
+
+    <!-- Cart Screen -->
+    <string name="order">Заказать за </string>
+    <string name="empty_cart">Пусто, выберите блюда в каталоге :)</string>
+
+    <!--    Search Screen-->
+    <string name="cancel">Cancel</string>
+    <string name="search_prompt">Найти блюдо</string>
+    <string name="search_invitation">Введите название блюда, которое ищете</string>
+    <string name="search_no_results">Ничего не нашлось :(</string>
+
+</resources>

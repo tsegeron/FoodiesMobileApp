@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_zero">0dp</dimen>
+    <dimen name="padding_extra_small">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_extra_large">24dp</dimen>
+    <dimen name="padding_extra_extra_large">32dp</dimen>
+    <dimen name="modal_bottom_sheet_padding">32dp</dimen>
+
+    <dimen name="padding_button_content">10dp</dimen>
+
+    <dimen name="padding_card_vertical">10dp</dimen>
+    <dimen name="padding_card_horizontal">8dp</dimen>
+
+    <dimen name="elevation_small">2dp</dimen>
+    <dimen name="elevation_medium">4dp</dimen>
+
+    <dimen name="catalog_button_height">40dp</dimen>
+    <dimen name="cart_button_height">44dp</dimen>
+    <dimen name="tag_size">24dp</dimen>
+    <dimen name="cart_dish_image_size">96dp</dimen>
+    <dimen name="divider_thickness">1dp</dimen>
+
+<!--    <dimen name="dish_price"></dimen>-->
+</resources>
