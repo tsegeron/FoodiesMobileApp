@@ -1,4 +1,4 @@
-package com.example.foodies.ui.screens.uiElements.catalogScreen
+package com.example.foodies.ui.screens.catalog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,15 +24,13 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import com.example.foodies.R
 import com.example.foodies.data.model.Tag
 
 
-/*
-    Options: ModalBottomSheet, BottomDrawer, ModalDrawer
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterMenu(
@@ -78,7 +76,7 @@ fun FilterMenu(
             Button(
                 onClick = { applyFilterOptionsOnClick(tagsCheckedState) },
                 shape = MaterialTheme.shapes.medium,
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF15412)),
+                colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.orange)),
                 contentPadding = PaddingValues(dimensionResource(id = R.dimen.padding_large)),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -113,9 +111,9 @@ fun FilterOptionsColumn(
             if (i < filterOptions.size - 1) {
                 HorizontalDivider(
                     modifier = Modifier
-                        .height(dimensionResource(id = R.dimen.divider_thickness))
+                        .height(dimensionResource(id = R.dimen.horizontal_divider_width))
                         .fillMaxWidth(),
-                    color = Color(0xFFE0E0E0)
+                    color = colorResource(id = R.color.horizontal_divider)
                 )
             }
         }
@@ -142,29 +140,10 @@ fun FilterTagRow(
             checked = tagsCheckedState[tagIndex],
             onCheckedChange = { tagsCheckedState[tagIndex] = it },
             colors = CheckboxDefaults.colors(
-                checkedColor = Color(0xFFF15412),
+                checkedColor = colorResource(id = R.color.orange),
                 uncheckedColor = Color.LightGray,
                 checkmarkColor = Color.White
             )
         )
     }
 }
-
-//private fun shareOrder(
-//    context: Context,
-//    subject: String,
-//    summary: String
-//) {
-//    val intent = Intent(Intent.ACTION_SEND).apply {
-//        type = "text/plain"
-//        putExtra(Intent.EXTRA_SUBJECT, subject)
-//        putExtra(Intent.EXTRA_TEXT, summary)
-//    }
-//
-//    context.startActivity(
-//        Intent.createChooser(
-//            intent,
-//            context.getString(R.string.filter)
-//        )
-//    )
-//}

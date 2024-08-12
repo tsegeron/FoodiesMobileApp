@@ -11,22 +11,20 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.example.foodies.data.model.Dish
 import com.example.foodies.presentation.FoodiesViewModel
-import com.example.foodies.ui.screens.CartScreen
-import com.example.foodies.ui.screens.CatalogScreen
+import com.example.foodies.ui.screens.cart.CartScreen
+import com.example.foodies.ui.screens.catalog.CatalogScreen
 import com.example.foodies.ui.screens.DishScreen
 import com.example.foodies.ui.screens.SearchScreen
 import kotlinx.coroutines.delay
@@ -44,14 +42,9 @@ enum class FoodiesScreen(@StringRes val title : Int) {
 
 @Composable
 fun FoodiesApp(
-    appViewModel: FoodiesViewModel = viewModel(),
+    appViewModel: FoodiesViewModel = viewModel(factory = FoodiesViewModel.Factory),
     navController: NavHostController = rememberNavController()
 ) {
-//    val backStackEntry by navController.currentBackStackEntryAsState()
-//    val currentScreen = FoodiesScreen.valueOf(
-//        backStackEntry?.destination?.route ?: FoodiesScreen.Catalog.name
-//    )
-
     NavHost(
         navController = navController,
         startDestination = FoodiesScreen.Splash.name,
@@ -91,12 +84,12 @@ fun FoodiesApp(
         ) {
             val dishId = it.arguments?.getInt("dish_id")?: 0
             DishScreen(
-                dish = appViewModel.uiState.collectAsState().value.dishesList.find { it.id == dishId },
+                dish = appViewModel.uiState.collectAsState().value.dishesList.find { dish -> dish.id == dishId },
                 onBackActionButtonClick = { navController.navigateUp() },
                 onCartButtonClick = { navController.navigate(FoodiesScreen.Cart.name) },
-                onCostButtonClick = { appViewModel.addDishToCart(it) },
-                onCounterAddButtonClick = { appViewModel.increaseDishCounter(it) },
-                onCounterReduceButtonClick = { appViewModel.decreaseDishCounter(it) }
+                onCostButtonClick = { dish -> appViewModel.addDishToCart(dish) },
+                onCounterAddButtonClick = { dish -> appViewModel.increaseDishCounter(dish) },
+                onCounterReduceButtonClick = { dish -> appViewModel.decreaseDishCounter(dish) }
             )
         }
         composable(route = FoodiesScreen.Cart.name) {
@@ -127,7 +120,7 @@ fun SplashScreenAnimation(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(0xFFFE5F0F))
+            .background(color = colorResource(id = R.color.windowSplashScreenBackground))
     ) {
         LottieAnimation(
             composition = composition,
@@ -135,11 +128,3 @@ fun SplashScreenAnimation(
         )
     }
 }
-
-//@Preview
-//@Composable
-//fun FoodiesAppPreview() {
-//    FoodiesTheme {
-//        FoodiesApp()
-//    }
-//}

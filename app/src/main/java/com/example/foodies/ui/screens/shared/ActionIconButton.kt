@@ -1,4 +1,4 @@
-package com.example.foodies.ui.screens.uiElements
+package com.example.foodies.ui.screens.shared
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

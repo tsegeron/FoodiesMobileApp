@@ -1,4 +1,4 @@
-package com.example.foodies.ui.screens.uiElements
+package com.example.foodies.ui.screens.shared
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -14,9 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.example.foodies.R
 
 
@@ -28,7 +28,7 @@ fun BottomBar(
     buttonPrompt: String = ""
 ) {
     BottomAppBar(
-        modifier = modifier.shadow(16.dp),
+        modifier = modifier.shadow(dimensionResource(id = R.dimen.bottom_bar_shadow)),
         containerColor = Color.White,
         contentPadding = PaddingValues(
             start = dimensionResource(id = R.dimen.padding_large),
@@ -40,7 +40,7 @@ fun BottomBar(
         Button(
             onClick = onClick,
             shape = MaterialTheme.shapes.medium,
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF15412)),
+            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.orange)),
             modifier = Modifier.fillMaxSize()
         ) {
             if (buttonPrompt.isEmpty()) {
@@ -51,7 +51,7 @@ fun BottomBar(
             }
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_small)))
             Text(
-                text = "$buttonPrompt $totalCost ₽", // TODO: change to dynamic currency?
+                text = "$buttonPrompt $totalCost ₽",
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.White
             )

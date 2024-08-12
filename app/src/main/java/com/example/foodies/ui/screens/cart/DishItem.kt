@@ -1,4 +1,4 @@
-package com.example.foodies.ui.screens.uiElements.cartScreen
+package com.example.foodies.ui.screens.cart
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -17,15 +17,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodies.R
 import com.example.foodies.data.model.Dish
-import com.example.foodies.ui.screens.uiElements.DishItemCounterButton
+import com.example.foodies.ui.screens.shared.DishItemCounterButton
 
 @Composable
 fun CartDishItem(
@@ -59,8 +59,10 @@ fun CartDishItem(
         )
     }
     HorizontalDivider(
-        modifier = Modifier.height(1.dp).fillMaxWidth(),
-        color = Color(0xFFE0E0E0)
+        modifier = Modifier
+            .height(dimensionResource(id = R.dimen.horizontal_divider_width))
+            .fillMaxWidth(),
+        color = colorResource(id = R.color.horizontal_divider)
     )
 }
 
@@ -94,7 +96,7 @@ fun CartDishInfoColumn(
                 onReduceButtonClick = onReduceButtonClick,
                 spaceBetween = dimensionResource(id = R.dimen.padding_small),
                 buttonSize = dimensionResource(id = R.dimen.cart_button_height),
-                buttonContainerColor = Color(0xFFF5F5F5)
+                buttonContainerColor = colorResource(id = R.color.counter_button_container)
             )
             DishCostColumn(
                 dishPriceCurrent = dish.price_current,
@@ -116,7 +118,7 @@ fun DishCostColumn(
         modifier = modifier.fillMaxHeight()
     ) {
         Text(
-            text = "$dishPriceCurrent ₽", // TODO: change to dynamic currency?
+            text = "$dishPriceCurrent ₽",
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium
         )
@@ -130,7 +132,7 @@ fun DishCostColumn(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun CartDishItemPreview() {
     CartDishItem(

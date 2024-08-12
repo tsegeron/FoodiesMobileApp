@@ -1,10 +1,7 @@
-package com.example.foodies.ui.screens.uiElements.catalogScreen
+package com.example.foodies.ui.screens.catalog
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.MarqueeAnimationMode
-import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,19 +20,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.foodies.R
 import com.example.foodies.data.model.Dish
-import com.example.foodies.ui.screens.uiElements.DishItemCounterButton
+import com.example.foodies.ui.screens.shared.DishItemCounterButton
 import com.example.foodies.ui.theme.FoodiesTheme
 
 
 private val tagsMap = mapOf(
-//    "Новинка" to R.drawable.discount,
-//    "Экспресс-меню" to R.drawable.discount,
     "Вегетарианское блюдо" to R.drawable.vegan,
     "Острое" to R.drawable.spicy,
     "Со скидкой" to R.drawable.discount
@@ -55,17 +50,15 @@ fun DishItem(
     Card(
         shape = MaterialTheme.shapes.medium,
         onClick = { onDishCardClick(dish.id) },
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5)),
+        colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.counter_button_container)),
         modifier = modifier
-//            .wrapContentHeight()
             .fillMaxWidth()
     ) {
         DishItemImage(
             dishImage = dish.image,
             dishTags = tagsNamesList,
             modifier = Modifier
-                .height(170.dp)
-//                .wrapContentWidth() // ??
+                .height(dimensionResource(id = R.dimen.dish_item_image_height))
         )
 
         DishItemInfoAndButton(
@@ -92,8 +85,7 @@ fun DishItemImage(
         modifier = modifier
     ) {
         Image(
-            painter = painterResource(id = R.drawable.dish), // TODO: change to image from API
-//            painter = dishImage,
+            painter = painterResource(id = R.drawable.dish), // TODO: change to image from API, coil
             contentDescription = null,
             contentScale = ContentScale.FillWidth,
         )
@@ -127,13 +119,12 @@ fun DishItemTags(
             .size(dimensionResource(id = R.dimen.tag_size))
     ) {
         Image(
-            painter = painterResource(id = painterRes), // TODO: change tag according to dish
+            painter = painterResource(id = painterRes),
             contentDescription = tagDescription,
         )
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DishItemInfoAndButton(
     dish: Dish,
@@ -153,15 +144,6 @@ fun DishItemInfoAndButton(
             modifier = Modifier
                 .padding(bottom = dimensionResource(id = R.dimen.padding_extra_small))
                 .focusable()
-                .basicMarquee(
-                    // TODO: doesn't work as needed
-//                    iterations = ,
-                    animationMode = MarqueeAnimationMode.WhileFocused, // TODO: change to WhileFocused?
-//                    delayMillis = 2000,
-//                    initialDelayMillis = 1000,
-//                    spacing = MarqueeSpacing(dimensionResource(id = R.dimen.padding_medium)),
-                    velocity = 15.dp,
-                )
         )
         Text(
             text = "${dish.measure} ${dish.measure_unit}",
@@ -173,8 +155,6 @@ fun DishItemInfoAndButton(
             DishItemCostButton(
                 dish = dish,
                 onClick = onCostButtonClick,
-//                priceCurrent = dish.price_current,
-//                priceOld = dish.price_old,
                 modifier = Modifier
                     .padding(top = dimensionResource(id = R.dimen.padding_medium))
                     .fillMaxWidth()
@@ -196,34 +176,33 @@ fun DishItemInfoAndButton(
 }
 
 
-
-//@Preview
-//@Composable
-//fun DishItemPreview() {
-//    FoodiesTheme {
-//        DishItem(
-//            Dish(
-//                1,
-//                676168,
-//                "Авокадо Кранч Маки 8шт",
-//                "Ролл с нежным мясом камчатского краба, копченой курицей и авокадо.Украшается соусом\"Унаги\" и легким майонезом  Комплектуется бесплатным набором для роллов (Соевый соус Лайт 35г., васаби 6г., имбирь 15г.). +1 набор за каждые 600 рублей в заказе",
-//                "1.jpg",
-//                47000,
-//                null,
-//                250,
-//                "г",
-//                307.8,
-//                6.1,
-//                11.4,
-//                45.1,
-//                listOf(4),
-//                0
-//            ),
-//            {},
-//            {},
-//            {},
-//            {},
-//            listOf("Вегетарианское блюдо", "Острое", "asdad")
-//        )
-//    }
-//}
+@Preview
+@Composable
+fun DishItemPreview() {
+    FoodiesTheme {
+        DishItem(
+            Dish(
+                1,
+                676168,
+                "Авокадо Кранч Маки 8шт",
+                "Ролл с нежным мясом камчатского краба, копченой курицей и авокадо.Украшается соусом\"Унаги\" и легким майонезом  Комплектуется бесплатным набором для роллов (Соевый соус Лайт 35г., васаби 6г., имбирь 15г.). +1 набор за каждые 600 рублей в заказе",
+                "1.jpg",
+                47000,
+                null,
+                250,
+                "г",
+                307.8,
+                6.1,
+                11.4,
+                45.1,
+                listOf(4),
+                0
+            ),
+            {},
+            {},
+            {},
+            {},
+            listOf("Вегетарианское блюдо", "Острое", "asdad")
+        )
+    }
+}

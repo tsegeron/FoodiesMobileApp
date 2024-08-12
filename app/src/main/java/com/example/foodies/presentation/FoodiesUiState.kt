@@ -4,6 +4,10 @@ import com.example.foodies.data.model.Category
 import com.example.foodies.data.model.Dish
 import com.example.foodies.data.model.Tag
 
+
+/**
+ * Ui State of the app
+ */
 data class FoodiesUiState(
     val isLoading: Boolean = false,
 

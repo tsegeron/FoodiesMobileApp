@@ -2,28 +2,37 @@ package com.example.foodies.presentation
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import com.example.foodies.data.DishesRepository
+import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.foodies.FoodiesApplication
+import com.example.foodies.data.repo.DishesRepository
 import com.example.foodies.data.model.Dish
-import com.example.foodies.data.Result
+import com.example.foodies.network.Result
 import com.example.foodies.data.model.Category
 import com.example.foodies.data.model.Tag
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import com.example.foodies.data.repo.UserPreferencesRepo
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
 private const val TAG = "ViewModel"
+private fun CreationExtras.foodiesApplication(): FoodiesApplication =
+    (this[APPLICATION_KEY] as FoodiesApplication)
+
 
 class FoodiesViewModel(
-    private val dishesRepository: DishesRepository
+    private val dishesRepository: DishesRepository,
+    private val userPreferences: UserPreferencesRepo
 ): ViewModel() {
 
     private val _showErrorToastChannel = Channel<Boolean>()
@@ -34,17 +43,37 @@ class FoodiesViewModel(
 
 
     init {
-        _getTagsList()
-        _getDishesList()
-        _getCategoriesList()
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(searchPrompt = userPreferences.searchPromptValue.first())
+            }
+        }
+        getTagsList()
+        getDishesList()
+        getCategoriesList()
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                FoodiesViewModel(
+                    foodiesApplication().container.dishesRepository,
+                    foodiesApplication().container.userPreferencesRepo
+                )
+            }
+        }
     }
 
 
     fun onSearchActionClick(searchPrompt: String) {
-        _uiState.update {
-            it.copy(
-                searchPrompt = searchPrompt
-            )
+        viewModelScope.launch {
+            userPreferences.saveSearchPromptValue(searchPrompt)
+
+            _uiState.update {
+                it.copy(
+                    searchPrompt = searchPrompt
+                )
+            }
         }
     }
 
@@ -59,7 +88,7 @@ class FoodiesViewModel(
         _uiState.update {
             it.copy(
                 categoriesList = updatedCategoryList,
-                dishesByFilterList = _getCurrentDishesList(updatedCategoryList = updatedCategoryList)
+                dishesByFilterList = getCurrentDishesList(updatedCategoryList = updatedCategoryList)
             )
         }
     }
@@ -72,7 +101,7 @@ class FoodiesViewModel(
         _uiState.update {
             it.copy(
                 tagsList = updatedTagsList,
-                dishesByFilterList = _getCurrentDishesList(
+                dishesByFilterList = getCurrentDishesList(
                     updatedTagsList = updatedTagsList.filter { tag -> tag.isSelected }
                 )
             )
@@ -86,7 +115,7 @@ class FoodiesViewModel(
     fun addDishToCart(dish: Dish) {
         val updatedDish: Dish = dish.copy(quantity = dish.quantity + 1)
 
-        _updateDishes(
+        updateDishes(
             dishesInCartUpdated = _uiState.value.dishesInCartList + updatedDish,
             dishesListUpdated = _uiState.value.dishesList.map { if (it == dish) updatedDish else it },
             totalCostUpdated = _uiState.value.totalCost + dish.price_current
@@ -102,7 +131,7 @@ class FoodiesViewModel(
             it.copy(
                 dishesList = updatedDishList,
                 dishesInCartList = emptyList(),
-                dishesByFilterList = _getCurrentDishesList(updatedDishList = updatedDishList),
+                dishesByFilterList = getCurrentDishesList(updatedDishList = updatedDishList),
                 searchPrompt = "",
                 totalCost = 0
             )
@@ -112,7 +141,7 @@ class FoodiesViewModel(
     fun increaseDishCounter(dish: Dish) {
         val updatedDish: Dish = dish.copy(quantity = dish.quantity + 1)
 
-        _updateDishes(
+        updateDishes(
             dishesInCartUpdated = _uiState.value.dishesInCartList.map { if (it == dish) updatedDish else it },
             dishesListUpdated = _uiState.value.dishesList.map { if (it == dish) updatedDish else it },
             totalCostUpdated = _uiState.value.totalCost + dish.price_current
@@ -127,14 +156,14 @@ class FoodiesViewModel(
             else
                 _uiState.value.dishesInCartList.map { if (it == dish) updatedDish else it }
 
-        _updateDishes(
+        updateDishes(
             dishesInCartUpdated = dishesInCartUpdated,
             dishesListUpdated = _uiState.value.dishesList.map { if (it == dish) updatedDish else it },
             totalCostUpdated = _uiState.value.totalCost - dish.price_current
         )
     }
 
-    private fun _getCurrentDishesList(
+    private fun getCurrentDishesList(
         updatedDishList: List<Dish> = _uiState.value.dishesList,
         updatedCategoryList: List<Category> = _uiState.value.categoriesList,
         updatedTagsList: List<Tag> = _uiState.value.tagsList,
@@ -152,7 +181,7 @@ class FoodiesViewModel(
         }
     }
 
-    private fun _updateDishes(
+    private fun updateDishes(
         dishesInCartUpdated: List<Dish>,
         dishesListUpdated: List<Dish>,
         totalCostUpdated: Int
@@ -161,14 +190,14 @@ class FoodiesViewModel(
             it.copy(
                 dishesInCartList = dishesInCartUpdated,
                 dishesList = dishesListUpdated,
-                dishesByFilterList = _getCurrentDishesList(updatedDishList = dishesListUpdated),
+                dishesByFilterList = getCurrentDishesList(updatedDishList = dishesListUpdated),
                 totalCost = totalCostUpdated
             )
         }
     }
 
 
-    private fun _getDishesList() {
+    private fun getDishesList() {
         viewModelScope.launch {
             dishesRepository.getDishesList().collectLatest { result ->
                 when (result) {
@@ -179,7 +208,7 @@ class FoodiesViewModel(
                                 isLoading = false
                             )
                         }
-                        Log.d(TAG, "_getDishesList Error")
+                        Log.d(TAG, "getDishesList Error")
                     }
 
                     is Result.Success -> {
@@ -199,7 +228,7 @@ class FoodiesViewModel(
                                 )
                             }
                         }
-                        Log.d(TAG, "_getDishesList Success")
+                        Log.d(TAG, "getDishesList Success")
                     }
 
                     is Result.Loading -> {
@@ -208,14 +237,14 @@ class FoodiesViewModel(
                                 isLoading = true
                             )
                         }
-                        Log.d(TAG, "_getDishesList Loading")
+                        Log.d(TAG, "getDishesList Loading")
                     }
                 }
             }
         }
     }
 
-    private fun _getCategoriesList() {
+    private fun getCategoriesList() {
         viewModelScope.launch {
             dishesRepository.getCategoriesList().collectLatest { result ->
                 when (result) {
@@ -250,7 +279,7 @@ class FoodiesViewModel(
         }
     }
 
-    private fun _getTagsList() {
+    private fun getTagsList() {
         viewModelScope.launch {
             dishesRepository.getTagsList().collectLatest { result ->
                 when (result) {
@@ -270,7 +299,7 @@ class FoodiesViewModel(
                                     tagsList = tags + Tag(
                                         tags.size + 1,
                                         "Со скидкой"
-                                    ) // TODO: add string?
+                                    )
                                 )
                             }
                         }

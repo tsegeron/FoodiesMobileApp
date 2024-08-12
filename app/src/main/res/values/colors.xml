@@ -7,5 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="orange">#FFF15412</color>
+
+
     <color name="windowSplashScreenBackground">#FFFE5F0F</color>
+
+    <!--  Dish Screen  -->
+    <color name="horizontal_divider">#FFE0E0E0</color>
+    <color name="dish_screen_name">#FF333333</color>
+    <color name="dish_screen_description">#FF828282</color>
+    <color name="counter_button_container">#FFF5F5F5</color>
+
+    <!--  Search Screen  -->
+    <color name="text_field_background">#4FEBAC68</color>
+
 </resources>

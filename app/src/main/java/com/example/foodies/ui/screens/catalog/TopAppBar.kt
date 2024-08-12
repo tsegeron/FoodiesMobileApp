@@ -1,4 +1,4 @@
-package com.example.foodies.ui.screens.uiElements.catalogScreen
+package com.example.foodies.ui.screens.catalog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,12 +22,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.foodies.R
 import com.example.foodies.data.model.Category
-import com.example.foodies.ui.screens.uiElements.ActionIconButton
+import com.example.foodies.ui.screens.shared.ActionIconButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -63,9 +64,6 @@ fun CatalogScreenTopAppBar(
                         Text(
                             text = "$markedTagsNum",
                             color = Color.White,
-//                            fontWeight = FontWeight.Bold, // TODO: add type Caption?
-//                            fontSize = 11.sp,
-//                            lineHeight = 13.sp,
                             modifier = Modifier.drawBehind {
                                 drawCircle(Color(0xFFF15412), size.minDimension + 1)
                             }
@@ -95,12 +93,12 @@ fun CatalogScreenTopAppBar(
         ) {
             items(categories) { category ->
                 FilterChip(
-                    selected = category.isSelected, // to change
+                    selected = category.isSelected,
                     onClick = { onCategoryChipClick(category) },
                     label = { Text(text = category.name) },
                     shape = MaterialTheme.shapes.medium,
                     colors = FilterChipDefaults.filterChipColors(
-                        selectedContainerColor = Color(0xFFF15412),
+                        selectedContainerColor = colorResource(id = R.color.orange),
                         selectedLabelColor = Color.White,
                     ),
                     border = FilterChipDefaults.filterChipBorder(

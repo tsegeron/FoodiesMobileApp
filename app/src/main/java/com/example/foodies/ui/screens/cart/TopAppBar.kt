@@ -1,4 +1,4 @@
-package com.example.foodies.ui.screens.uiElements.cartScreen
+package com.example.foodies.ui.screens.cart
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -16,10 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.foodies.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,7 +39,7 @@ fun CartScreenTopAppBar(
         },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White),
         modifier = modifier.shadow(
-            elevation = 8.dp,
+            elevation = dimensionResource(id = R.dimen.elevation_large),
             spotColor = Color.Black,
             shape = RectangleShape
         )
@@ -80,7 +80,7 @@ fun BarNavIcon(
         Icon(
             painter = painterResource(id = iconRes),
             contentDescription = stringResource(iconDescription),
-            tint = Color(0xFFF15412),
+            tint = colorResource(id = R.color.orange),
             modifier = Modifier
         )
     }

@@ -1,4 +1,4 @@
-package com.example.foodies.ui.screens.uiElements
+package com.example.foodies.ui.screens.shared
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -63,7 +64,7 @@ fun DishItemCounterButton(
             text = "${dish.quantity}",
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
-            modifier = Modifier.width(31.dp)
+            modifier = Modifier.width(dimensionResource(id = R.dimen.counter_button_quantity_width))
         )
 
         ElevatedButtonWithIcon(
@@ -101,7 +102,7 @@ fun ElevatedButtonWithIcon(
         Icon(
             painter = painterResource(id = iconRes),
             contentDescription = stringResource(id = iconDescription),
-            tint = Color(0xFFF15412)
+            tint = colorResource(id = R.color.orange)
         )
     }
 }
@@ -134,7 +135,5 @@ fun DishItemCounterButtonPreview() {
         buttonContainerColor = Color.White,
         buttonElevation = dimensionResource(R.dimen.elevation_medium),
         modifier = Modifier
-//            .padding(top = dimensionResource(id = R.dimen.padding_medium))
-//            .fillMaxWidth()
     )
 }

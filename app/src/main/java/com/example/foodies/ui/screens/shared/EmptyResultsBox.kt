@@ -1,4 +1,4 @@
-package com.example.foodies.ui.screens.uiElements
+package com.example.foodies.ui.screens.shared
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
@@ -10,10 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.foodies.R
 
 @Composable
 fun EmptyResultsBoxLayout(
@@ -32,7 +33,7 @@ fun EmptyResultsBoxLayout(
                 lineHeight = 22.sp
             ),
             textAlign = TextAlign.Center,
-            modifier = Modifier.width(240.dp)
+            modifier = Modifier.width(dimensionResource(id = R.dimen.empty_result_text_width))
         )
     }
 }

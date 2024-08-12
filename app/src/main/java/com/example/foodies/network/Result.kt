@@ -1,4 +1,4 @@
-package com.example.foodies.data
+package com.example.foodies.network
 
 
 sealed class Result<T>(

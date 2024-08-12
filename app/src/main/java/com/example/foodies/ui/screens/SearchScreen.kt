@@ -1,13 +1,9 @@
 package com.example.foodies.ui.screens
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.TextSelectionColors
@@ -25,7 +21,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusManager
@@ -33,21 +28,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.foodies.R
 import com.example.foodies.presentation.FoodiesViewModel
-import com.example.foodies.ui.screens.uiElements.ActionIconButton
-import com.example.foodies.ui.screens.uiElements.BottomBar
-import com.example.foodies.ui.screens.uiElements.EmptyResultsBoxLayout
-import com.example.foodies.ui.screens.uiElements.cartScreen.BarNavIcon
+import com.example.foodies.ui.screens.catalog.DishesList
+import com.example.foodies.ui.screens.shared.ActionIconButton
+import com.example.foodies.ui.screens.shared.BottomBar
+import com.example.foodies.ui.screens.shared.EmptyResultsBoxLayout
+import com.example.foodies.ui.screens.cart.BarNavIcon
 
 @Composable
 fun SearchScreen(
@@ -175,7 +168,7 @@ fun SearchScreenTopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Color.White
         ),
-        modifier = modifier.shadow(8.dp)
+        modifier = modifier.shadow(dimensionResource(id = R.dimen.top_bar_shadow))
     )
 }
 
@@ -196,10 +189,10 @@ fun TopAppBarTextField(
             unfocusedContainerColor = Color.White,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
-            cursorColor = Color(0xFFF15412),
+            cursorColor = colorResource(id = R.color.orange),
             selectionColors = TextSelectionColors(
-                handleColor = Color(0xFFF15412),
-                backgroundColor = Color(0x4FEBAC68)
+                handleColor = colorResource(id = R.color.orange),
+                backgroundColor = colorResource(id = R.color.text_field_background)
             )
         ),
         placeholder = {
@@ -218,13 +211,6 @@ fun TopAppBarTextField(
         ),
         singleLine = true,
         textStyle = MaterialTheme.typography.bodyMedium.copy(color = Color.DarkGray),
-        modifier = modifier.fillMaxWidth()//.offset(x = -12.dp) // TODO: AppBar offset?
+        modifier = modifier.fillMaxWidth()
     )
 }
-
-
-//@Preview(name = "SearchScreen", showBackground = true)
-//@Composable
-//fun SearchScreenPreview() {
-//    SearchScreen()
-//}

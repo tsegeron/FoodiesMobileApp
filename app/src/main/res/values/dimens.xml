@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="padding_zero">0dp</dimen>
     <dimen name="padding_extra_small">4dp</dimen>
     <dimen name="padding_small">8dp</dimen>
     <dimen name="padding_medium">12dp</dimen>
     <dimen name="padding_large">16dp</dimen>
     <dimen name="padding_extra_large">24dp</dimen>
-    <dimen name="padding_extra_extra_large">32dp</dimen>
+
     <dimen name="modal_bottom_sheet_padding">32dp</dimen>
-
     <dimen name="padding_button_content">10dp</dimen>
-
     <dimen name="padding_card_vertical">10dp</dimen>
     <dimen name="padding_card_horizontal">8dp</dimen>
 
     <dimen name="elevation_small">2dp</dimen>
     <dimen name="elevation_medium">4dp</dimen>
+    <dimen name="elevation_large">8dp</dimen>
 
-    <dimen name="catalog_button_height">40dp</dimen>
-    <dimen name="cart_button_height">44dp</dimen>
     <dimen name="tag_size">24dp</dimen>
-    <dimen name="cart_dish_image_size">96dp</dimen>
-    <dimen name="divider_thickness">1dp</dimen>
+    <dimen name="empty_result_text_width">240dp</dimen>
 
-<!--    <dimen name="dish_price"></dimen>-->
+    <!--  Dish Screen  -->
+    <dimen name="horizontal_divider_width">1dp</dimen>
+    <dimen name="bottom_bar_shadow">16dp</dimen>
+    <dimen name="counter_button_width">148dp</dimen>
+    <dimen name="counter_button_quantity_width">31dp</dimen>
+    <dimen name="dish_info_row_height">50dp</dimen>
+    <dimen name="bottom_bar_spacer_width">32dp</dimen>
+
+    <!--  Search Screen  -->
+    <dimen name="top_bar_shadow">8dp</dimen>
+
+    <!--  Catalog Screen  -->
+    <dimen name="catalog_button_height">40dp</dimen>
+    <dimen name="cost_button_horizontal_spacing">8dp</dimen>
+    <dimen name="dish_item_image_height">170dp</dimen>
+
+    <!--  Cart Screen  -->
+    <dimen name="cart_dish_image_size">96dp</dimen>
+    <dimen name="cart_button_height">44dp</dimen>
+    <dimen name="alert_dialog_card_height">180dp</dimen>
+
 </resources>

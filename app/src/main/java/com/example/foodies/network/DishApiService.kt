@@ -1,12 +1,12 @@
-package com.example.foodies.data
+package com.example.foodies.network
 
 import com.example.foodies.data.model.Category
 import com.example.foodies.data.model.Dish
 import com.example.foodies.data.model.Tag
 import retrofit2.http.GET
 
-interface DishApiService {
 
+interface DishApiService {
     @GET("Products.json")
     suspend fun getDishesList(): List<Dish>
 

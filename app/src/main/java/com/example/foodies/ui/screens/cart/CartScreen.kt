@@ -1,4 +1,4 @@
-package com.example.foodies.ui.screens
+package com.example.foodies.ui.screens.cart
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,21 +11,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.foodies.R
 import com.example.foodies.data.model.Dish
 import com.example.foodies.presentation.FoodiesViewModel
-import com.example.foodies.ui.screens.uiElements.BottomBar
-import com.example.foodies.ui.screens.uiElements.EmptyResultsBoxLayout
-import com.example.foodies.ui.screens.uiElements.cartScreen.AlertDialogOnClick
-import com.example.foodies.ui.screens.uiElements.cartScreen.CartDishItem
-import com.example.foodies.ui.screens.uiElements.cartScreen.CartScreenTopAppBar
-import com.example.foodies.ui.theme.FoodiesTheme
+import com.example.foodies.ui.screens.shared.BottomBar
+import com.example.foodies.ui.screens.shared.EmptyResultsBoxLayout
 
 
 @Composable
@@ -67,7 +61,7 @@ fun CartScreen(
         }
 
         if (openAlertDialog.value) {
-            AlertDialogOnClick(
+            AcceptedOrderAlertDialog(
                 onDismissRequest = {
                     onAlertDismissRequest()
                     openAlertDialog.value = false
@@ -98,12 +92,3 @@ fun CartDishItemsList(
         }
     }
 }
-
-
-//@Preview
-//@Composable
-//fun CartScreenPreview() {
-//    FoodiesTheme {
-//        CartScreen()
-//    }
-//}
