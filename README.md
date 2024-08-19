@@ -1,5 +1,5 @@
 # FoodiesMobileApp
-Android mobile application build fully in Kotlin with Jetpack Compose
+Jetpack Compose Android app with the use of Retrofit, Preferences DataStore, Dependency Injection.
 
 
 ## App Lifecycle
