@@ -16,6 +16,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.example.foodies.R
 
+
+/**
+ * Box with prompt when there's no results
+ */
 @Composable
 fun EmptyResultsBoxLayout(
     @StringRes textResId: Int,

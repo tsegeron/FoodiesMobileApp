@@ -42,6 +42,7 @@ enum class FoodiesScreen(@StringRes val title : Int) {
 
 @Composable
 fun FoodiesApp(
+    onBackClick: () -> Unit,
     appViewModel: FoodiesViewModel = viewModel(factory = FoodiesViewModel.Factory),
     navController: NavHostController = rememberNavController()
 ) {
@@ -51,11 +52,15 @@ fun FoodiesApp(
     ) {
         composable(route = FoodiesScreen.Splash.name) {
             SplashScreenAnimation(
-                navigateToCatalog = { navController.navigate(FoodiesScreen.Catalog.name) }
+                navigateToCatalog = {
+                    navController.navigate(FoodiesScreen.Catalog.name)
+                    navController.clearBackStack(FoodiesScreen.Splash.name)
+                }
             )
         }
         composable(route = FoodiesScreen.Catalog.name) {
             CatalogScreen(
+                onBackClick = onBackClick,
                 onSearchIconClick = { navController.navigate(FoodiesScreen.Search.name) },
                 onDishCardClick = {
                     navController.navigate("${FoodiesScreen.DishCard.name}/$it")

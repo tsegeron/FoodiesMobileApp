@@ -1,5 +1,10 @@
 package com.example.foodies.ui.screens.catalog
 
+import android.content.Context
+import android.content.ContextWrapper
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalActivityResultRegistryOwner
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -19,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.foodies.data.model.Dish
@@ -31,11 +37,16 @@ import com.example.foodies.ui.screens.shared.EmptyResultsBoxLayout
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CatalogScreen(
+    onBackClick: () -> Unit,
     onSearchIconClick: () -> Unit,
     onDishCardClick: (Int) -> Unit,
     onCartButtonClick: () -> Unit,
     appViewModel: FoodiesViewModel = viewModel()
 ) {
+    BackHandler {
+        onBackClick()
+    }
+
     val foodiesUiState by appViewModel.uiState.collectAsState()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var isSheetOpen by rememberSaveable {

@@ -9,8 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.foodies.R
+import com.example.foodies.ui.theme.FoodiesTheme
 
 
+/**
+ * Icon Button for Search, Filter, Cancel
+ */
 @Composable
 fun ActionIconButton(
     onClick: () -> Unit,
@@ -26,6 +32,18 @@ fun ActionIconButton(
         Icon(
             painter = painterResource(id = painterRes),
             contentDescription = stringResource(id = iconDes)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ActionIconButtonPreview() {
+    FoodiesTheme {
+        ActionIconButton(
+            onClick = {},
+            painterRes = R.drawable.cancel,
+            iconDes = R.string.cancel,
         )
     }
 }

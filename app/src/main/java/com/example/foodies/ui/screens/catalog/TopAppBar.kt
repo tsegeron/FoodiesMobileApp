@@ -49,27 +49,11 @@ fun CatalogScreenTopAppBar(
                 )
             },
             navigationIcon = {
-                Box(
-                    contentAlignment = Alignment.TopEnd,
-                ) {
-                    IconButton(
-                        onClick = onFilterIconClick,
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.filter),
-                            contentDescription = stringResource(id = R.string.filter_button)
-                        )
-                    }
-                    if (markedTagsNum != 0) {
-                        Text(
-                            text = "$markedTagsNum",
-                            color = Color.White,
-                            modifier = Modifier.drawBehind {
-                                drawCircle(Color(0xFFF15412), size.minDimension + 1)
-                            }
-                        )
-                    }
-                }
+                NavigationIconButton(
+                    onClick = onFilterIconClick,
+                    modifier = Modifier,
+                    markedTagsNum = markedTagsNum
+                )
             },
             actions = {
                 ActionIconButton(
@@ -108,6 +92,34 @@ fun CatalogScreenTopAppBar(
                     )
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun NavigationIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    markedTagsNum: Int = 0,
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.TopEnd,
+    ) {
+        ActionIconButton(
+            onClick = onClick,
+            painterRes = R.drawable.filter,
+            iconDes = R.string.filter_button
+        )
+
+        if (markedTagsNum != 0) {
+            Text(
+                text = "$markedTagsNum",
+                color = Color.White,
+                modifier = Modifier.drawBehind {
+                    drawCircle(Color(0xFFF15412), size.minDimension + 1)
+                }
+            )
         }
     }
 }
